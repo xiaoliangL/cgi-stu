@@ -13,11 +13,10 @@ int cgiMain()
 
 	fprintf(cgiOut, "Content-type:text/html;charset=utf-8\n\n");
 
-	char studentName[32] = "\0";
-	char sex[10] = "\0";
-	char birthday[30] = "\0";
 	char classNo[10] = "\0";
-	char stu_id[15] = "\0";
+	char className[30] = "\0";
+	char grade[30] = "\0";
+
 	int status = 0;
 	int ret;
 	//char sql[128] = "\0";
@@ -39,40 +38,26 @@ int cgiMain()
 	MYSQL *db;
 	char sql[128] = "\0";
 
-	status = cgiFormString("stu_id",  stu_id, 15);
-	if (status != cgiFormSuccess)
-	{
-		fprintf(cgiOut, "get stu_id error!\n");
-		return 1;
-	}
-
-
-
-	status = cgiFormString("studentName",  studentName, 32);
-	if (status != cgiFormSuccess)
-	{
-		fprintf(cgiOut, "get studentName error!\n");
-		return 1;
-	}
-
-	status = cgiFormString("sex",  sex, 16);
-	if (status != cgiFormSuccess)
-	{
-		fprintf(cgiOut, "get sex error!\n");
-		return 1;
-	}
-
-	status = cgiFormString("birthday",  birthday, 32);
-	if (status != cgiFormSuccess)
-	{
-		fprintf(cgiOut, "get birthday error!\n");
-		return 1;
-	}
-
-	status = cgiFormString("classNo",  classNo, 32);
+	status = cgiFormString("classNo",  classNo, 10);
 	if (status != cgiFormSuccess)
 	{
 		fprintf(cgiOut, "get classNo error!\n");
+		return 1;
+	}
+
+
+
+	status = cgiFormString("className",  className, 30);
+	if (status != cgiFormSuccess)
+	{
+		fprintf(cgiOut, "get className error!\n");
+		return 1;
+	}
+
+	status = cgiFormString("grade",  grade, 30);
+	if (status != cgiFormSuccess)
+	{
+		fprintf(cgiOut, "get grade error!\n");
 		return 1;
 	}
 
@@ -97,7 +82,7 @@ int cgiMain()
 	}
 
 mysql_set_character_set(db, "utf8");
-	sprintf(sql, "update Information set studentName = '%s',sex= '%s',birthday='%s',classNo = '%s' where studentNo = '%s' ", studentName, sex, birthday,classNo,stu_id);
+	sprintf(sql, "update Class set className = '%s',grade= '%s' where classNo = '%s' ", className, grade,classNo);
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
 		fprintf(cgiOut,"mysql_real_query fail:%s\n", mysql_error(db));
@@ -109,7 +94,7 @@ mysql_set_character_set(db, "utf8");
 
 
 
-	fprintf(cgiOut, "<p style='margin-left:20px;'>update student ok!</p>");
+	fprintf(cgiOut, "<p style='margin-left:20px;'>update Class ok!</p>");
 	fprintf(cgiOut, "<input type='button' name='button1' id='button1' value='返回' onclick='history.go(-1)'  class='btn btn-default'>");
 	mysql_close(db);
 	return 0;

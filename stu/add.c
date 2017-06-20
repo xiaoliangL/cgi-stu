@@ -120,8 +120,10 @@ fprintf(cgiOut, "name = %s, age = %s, stuId = %s stu_address = %s\n", name, age,
 		return -1;
 	}
 
-	fprintf(cgiOut, "<p style='margin-left:20px;'>add student ok!</p>");
-	fprintf(cgiOut, "<input type='button' name='button1' id='button1' value='返回' onclick='history.go(-1)'  class='btn btn-default'>");
+	fprintf(cgiOut, "<p style='margin-left:20px;'>add student ok!</p> ");
+	fprintf(cgiOut, "<form action='/cgi-bin/sx/del_class.cgi' class='form-horizontal' method='get'> <div class='text-center'> <input type='button' name='button1' id='button1' value='返回' onclick='history.go(-1)'  class='btn btn-default'>");
+	fprintf(cgiOut, "    <button type='submit' class='btn btn-success'>提交点我添加成绩</a> </div></form> ");
+
 	mysql_close(db);
 	return 0;
 }
