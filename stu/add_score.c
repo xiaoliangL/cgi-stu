@@ -13,12 +13,10 @@ int cgiMain()
 
 	fprintf(cgiOut, "Content-type:text/html;charset=utf-8\n\n");
 
-	char studentName[32] = "\0";
-	char stu_id[32] = "\0";
+	char studentNo[32] = "\0";
+	char courseNo[32] = "\0";
 	int status = 0;
-	char sex[10] = "\0";
-	char birthday[30] = "\0";
-	char classNo[30] = "\0";
+	char score[30] = "\0";
 	char ch;
   FILE * fd;
 
@@ -35,41 +33,26 @@ int cgiMain()
 	}
   fclose(fd);
 
-	status = cgiFormString("studentName",  studentName, 32);
+	status = cgiFormString("studentNo",  studentNo, 32);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get name error!\n");
+		fprintf(cgiOut, "get studentNo error!\n");
 		return 1;
 	}
 
-	status = cgiFormString("stu_id",  stu_id, 32);
+	status = cgiFormString("courseNo",  courseNo, 32);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get stu_id error!\n");
+		fprintf(cgiOut, "get courseNo error!\n");
 		return 1;
 	}
 
-	status = cgiFormString("birthday",  birthday, 30);
+	status = cgiFormString("score",  score, 30);
   if (status != cgiFormSuccess)
   {
- 	 fprintf(cgiOut, "get birthday error!\n");
+ 	 fprintf(cgiOut, "get score error!\n");
  	 return 1;
   }
-
-	status = cgiFormString("sex",  sex, 10);
-  if (status != cgiFormSuccess)
-  {
- 	 fprintf(cgiOut, "get sex error!\n");
- 	 return 1;
-  }
-
-	status = cgiFormString("classNo",  classNo, 30);
-  if (status != cgiFormSuccess)
-  {
- 	 fprintf(cgiOut, "get classNo error!\n");
- 	 return 1;
-  }
-
 
 
 	//fprintf(cgiOut, "name = %s, age = %s, stuId = %s\n", name, age, stuId);
@@ -112,7 +95,7 @@ int cgiMain()
 mysql_set_character_set(db, "utf8");
 /*
 fprintf(cgiOut, "name = %s, age = %s, stuId = %s stu_address = %s\n", name, age, stu_id,stu_address);*/
-	sprintf(sql, "insert into Information(studentNo,studentName,sex,birthday,classNo) values('%s', '%s', '%s', '%s','%s')",stu_id, studentName,sex,birthday,classNo);
+	sprintf(sql, "insert into Score(studentNo,courseNo,score) values('%s', '%s', '%s')",studentNo, courseNo,score);
 	if (mysql_real_query(db, sql, strlen(sql) + 1) != 0)
 	{
 		fprintf(cgiOut, "%s\n", mysql_error(db));
@@ -120,9 +103,9 @@ fprintf(cgiOut, "name = %s, age = %s, stuId = %s stu_address = %s\n", name, age,
 		return -1;
 	}
 
-	fprintf(cgiOut, "<p style='margin-left:20px;'>add student ok!</p> ");
+	fprintf(cgiOut, "<p style='margin-left:20px;'>添加成绩完成!</p> ");
 	fprintf(cgiOut, "<input type='button' name='button1' id='button1' value='返回' onclick='history.go(-1)'  class='btn btn-default'>");
-	fprintf(cgiOut, "    <a href='../../add_score.html' class='btn btn-success'>提交点我添加成绩</a> </body></html> ");
+	fprintf(cgiOut, "    <a href='../../index.html' class='btn btn-success'>点我回首页</a> </body></html> ");
 
 	mysql_close(db);
 	return 0;
