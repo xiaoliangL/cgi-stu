@@ -22,7 +22,7 @@ int cgiMain()
 						<link rel=\"stylesheet\" href=\"/stu/public/css/bootstrap.min.css\">\
 				");
 			fprintf(cgiOut,"<link href='/public/css/bootstrap.min.css' rel='stylesheet' >");
-	char name[32] = "\0";
+	char studentName[32] = "\0";
 	int status = 0;
 	char ch;
   FILE * fd;
@@ -45,10 +45,10 @@ int cgiMain()
 
 	fprintf(cgiOut,"<script src='./public/js/bootstrap.min.js'></script></head>");
 */
-	status = cgiFormString("name",  name, 32);
+	status = cgiFormString("studentName",  studentName, 32);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get name error!\n");
+		fprintf(cgiOut, "get studentName error!\n");
 		return 1;
 	}
 
@@ -56,13 +56,13 @@ int cgiMain()
 	MYSQL *db;
 	char sql[128] = "\0";
 
-	if (name[0] == '*')
+	if (studentName[0] == '*')
 	{
 		sprintf(sql, "select info.*,sc.score,c.courseName from Information as info left join Score as sc on sc.studentNo = info.studentNo left join Course as c on c.courseNo = info.courseNo");
 	}
 	else
 	{
-		sprintf(sql, "select * from  Information where name = '%s'", name);
+		sprintf(sql, "select info.*,sc.score,c.courseName from Information as info left join Score as sc on sc.studentNo = info.studentNo left join Course as c on c.courseNo = info.courseNo where info.studentName = '%s'", studentName);
 	}
 
 

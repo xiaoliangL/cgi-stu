@@ -18,7 +18,7 @@ int cgiMain()
 	int status = 0;
 	char sex[10] = "\0";
 	char birthday[30] = "\0";
-	char classNo[30] = "\0";
+	char courseNo[30] = "\0";
 	char ch;
   FILE * fd;
 
@@ -63,7 +63,7 @@ int cgiMain()
  	 return 1;
   }
 
-	status = cgiFormString("classNo",  classNo, 30);
+	status = cgiFormString("courseNo",  courseNo, 30);
   if (status != cgiFormSuccess)
   {
  	 fprintf(cgiOut, "get classNo error!\n");
@@ -112,7 +112,7 @@ int cgiMain()
 mysql_set_character_set(db, "utf8");
 /*
 fprintf(cgiOut, "name = %s, age = %s, stuId = %s stu_address = %s\n", name, age, stu_id,stu_address);*/
-	sprintf(sql, "insert into Information(studentNo,studentName,sex,birthday,classNo) values('%s', '%s', '%s', '%s','%s')",stu_id, studentName,sex,birthday,classNo);
+	sprintf(sql, "insert into Information(studentNo,studentName,sex,birthday,courseNo) values('%s', '%s', '%s', '%s','%s')",stu_id, studentName,sex,birthday,courseNo);
 	if (mysql_real_query(db, sql, strlen(sql) + 1) != 0)
 	{
 		fprintf(cgiOut, "%s\n", mysql_error(db));

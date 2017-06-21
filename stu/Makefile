@@ -17,3 +17,4 @@ install:
 cpa:
 	sudo cp head.html footer.html /usr/lib/cgi-bin/sx/
 	sudo cp add_score.html /var/www/html/
+	sudo cp index.html /var/www/html/
