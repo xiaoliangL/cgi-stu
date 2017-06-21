@@ -58,7 +58,7 @@ int cgiMain()
 
 	if (studentName[0] == '*')
 	{
-		sprintf(sql, "select info.*,sc.score,c.courseName from Information as info left join Score as sc on sc.studentNo = info.studentNo left join Course as c on c.courseNo = info.courseNo");
+		sprintf(sql, "select info.studentNo,info.studentName,info.sex,info.birthday,sc.score,c.courseName from Information as info left join Score as sc on sc.studentNo = info.studentNo left join Course as c on c.courseNo = info.courseNo  where info.infoEnable = 1");
 	}
 	else
 	{

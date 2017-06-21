@@ -60,7 +60,7 @@ int cgiMain()
 	}
 
 
-	sprintf(sql, "delete from Information where studentNo = '%s'", stuId);
+	sprintf(sql, "update Information  set infoEnable = not infoEnable   where studentNo = '%s'", stuId);
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
 		fprintf(cgiOut,"mysql_real_query fail:%s\n", mysql_error(db));
