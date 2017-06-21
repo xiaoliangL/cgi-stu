@@ -18,9 +18,7 @@ int cgiMain()
 			</head>");*/
 
 
-			fprintf(cgiOut, "<head><meta charset=\"utf-8\"><title>查询结果</title>\
-						<link rel=\"stylesheet\" href=\"/stu/public/css/bootstrap.min.css\">\
-				");
+
 			fprintf(cgiOut,"<link href='/public/css/bootstrap.min.css' rel='stylesheet' >");
 	char studentName[32] = "\0";
 	int status = 0;
@@ -40,7 +38,9 @@ int cgiMain()
 	}
   fclose(fd);
 
-
+	fprintf(cgiOut, "<head><meta charset=\"utf-8\"><title>查询结果</title>\
+				<link rel=\"stylesheet\" href=\"/stu/public/css/bootstrap.min.css\">\
+		");
 	/*fprintf(cgiOut," <script src='https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js'></script>");
 
 	fprintf(cgiOut,"<script src='./public/js/bootstrap.min.js'></script></head>");
@@ -58,11 +58,11 @@ int cgiMain()
 
 	if (studentName[0] == '*')
 	{
-		sprintf(sql, "select info.studentNo,info.studentName,info.sex,info.birthday,sc.score,c.courseName from Information as info left join Score as sc on sc.studentNo = info.studentNo left join Course as c on c.courseNo = info.courseNo  where info.infoEnable = 1");
+		sprintf(sql, "select info.studentNo as '学号',info.studentName as '姓名',info.sex as '性别',info.birthday as '生日',sc.score as '成绩',c.courseName as '学科' from Information as info left join Score as sc on sc.studentNo = info.studentNo left join Course as c on c.courseNo = info.courseNo  where info.infoEnable = 1");
 	}
 	else
 	{
-		sprintf(sql, "select info.*,sc.score,c.courseName from Information as info left join Score as sc on sc.studentNo = info.studentNo left join Course as c on c.courseNo = info.courseNo where info.studentName = '%s'", studentName);
+		sprintf(sql, "select info.studentNo as '学号',info.studentName as '姓名',info.sex as '性别',info.birthday as '生日',sc.score as '成绩',c.courseName as '学科' from Information as info left join Score as sc on sc.studentNo = info.studentNo left join Course as c on c.courseNo = info.courseNo where info.studentName = '%s'", studentName);
 	}
 
 
@@ -127,12 +127,15 @@ int cgiMain()
 		{
 			fprintf(cgiOut,"<td>%.*s</td>", (int)len[i], row[i]);
 		}
+
 		fprintf(cgiOut,"</tr>");
 	}
-	fprintf(cgiOut,"</table></div>");
 
+	fprintf(cgiOut,"</tr>");
+	fprintf(cgiOut,"</table>");
+	fprintf(cgiOut,"<tr>");
+	fprintf(cgiOut, "<div ><input type='button' name='button1' id='button1' value='返回' onclick='history.go(-1)'  class='btn btn-default' align='center' ></div> </div></body></html>");
 
-fprintf(cgiOut, "<input type='button' name='button1' id='button1' value='返回' onclick='history.go(-1)'  class='btn btn-default'> </body></html>");
 	mysql_close(db);
 	return 0;
 }
