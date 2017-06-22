@@ -1,0 +1,56 @@
+###  第一步   更新源
+用vim打开源列表文件。
+````
+sudo vim /etc/apt/sources.list
+````
+将下面的源粘贴到源列表里。
+```
+deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse
+##测试版源
+deb http://mirrors.aliyun.com/ubuntu/ xenial-proposed main restricted universe multiverse
+# 源码
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse
+##测试版源
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-proposed main restricted universe multiverse
+# Canonical 合作伙伴和附加
+deb http://archive.canonical.com/ubuntu/ xenial partner
+deb http://extras.ubuntu.com/ubuntu/ xenial main
+```
+
+###  第二步   安装mysql
+```
+sudo apt-get update 更新源
+sudo apt-get install mysql-client mysql-server 安装mysql服务器和客户端
+sudo /etc/init.d/mysqld start 启动mysql服务
+```
+
+###  第三步 Apache安装
+```
+sudo apt-get update
+sudo apt-get install tasksel
+sudo tasksel
+```
+
+### 第四步 workbench 安装
+```
+sudo apt-get install mysql-workbench
+```
+
+### 第五步 安装插件muycli
+```
+  sudo apt-get install python-pip
+  sudo pip install mycli
+ ```
+### 第六步 使用mycli 连接数据库
+```
+mycli -u root -h localhost db.name
+```
+比如 进入stu的数据库
+mycli -u root -h localhost stu
+
