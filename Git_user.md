@@ -37,13 +37,21 @@ git commit
 会出现提交失败 
 需要输入配置用户信息
 配置用户名
+```
 git config --global user.name
+```
 配置用户邮箱
+```
 git config --global user.email
+```
 配置编辑提交信息的编辑器, 我们熟悉的编辑器是vim.
+```
 git config --global core.editor vim
+```
 查看提交信息
+```
 git log
+```
 完成配置。
 
 ### 第五步 添加远程仓库
